@@ -1,0 +1,42 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Transit.PodAmbienceState",
+  "type": "object",
+  "description": "Ambience control parameters for transit cabins and EV pods.",
+  "properties": {
+    "route_phase": {
+      "type": "string",
+      "enum": ["boarding", "departure", "cruise", "arrival"],
+      "description": "Phase of the current route."
+    },
+    "occupancy_ratio": {
+      "type": "number",
+      "minimum": 0.0,
+      "maximum": 1.0,
+      "description": "Occupancy ratio of the cabin (0–1)."
+    },
+    "time_of_day": {
+      "type": ["string", "number"],
+      "description": "Time of day, either encoded categorical or numeric."
+    },
+    "incident_alert_level": {
+      "type": "string",
+      "enum": ["none", "minor_delay", "major_disruption"],
+      "description": "Current alert level affecting the route."
+    },
+    "motion_smoothness": {
+      "type": "number",
+      "minimum": 0.0,
+      "maximum": 1.0,
+      "description": "Derived measure of motion smoothness (0–1)."
+    }
+  },
+  "required": [
+    "route_phase",
+    "occupancy_ratio",
+    "time_of_day",
+    "incident_alert_level",
+    "motion_smoothness"
+  ],
+  "additionalProperties": false
+}
