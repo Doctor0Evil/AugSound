@@ -1,0 +1,40 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Civic.QuietRoomSoundscape",
+  "type": "object",
+  "description": "Soundscape control schema for civic quiet rooms, library nooks, and focus pods.",
+  "properties": {
+    "room_type": {
+      "type": "string",
+      "enum": ["library_nook", "meditation_room", "focus_pod"],
+      "description": "Type of quiet room."
+    },
+    "occupation_count": {
+      "type": "number",
+      "minimum": 0,
+      "description": "Number of occupants currently in the room."
+    },
+    "requested_mode": {
+      "type": "string",
+      "enum": ["silence", "near_silence", "soft_ambience"],
+      "description": "Requested ambience mode."
+    },
+    "hrv_target": {
+      "type": ["number", "object"],
+      "description": "Numeric or band for heart-rate variability support."
+    },
+    "external_noise_events": {
+      "type": "number",
+      "minimum": 0,
+      "description": "Rate per minute of external noise events."
+    }
+  },
+  "required": [
+    "room_type",
+    "occupation_count",
+    "requested_mode",
+    "hrv_target",
+    "external_noise_events"
+  ],
+  "additionalProperties": false
+}
