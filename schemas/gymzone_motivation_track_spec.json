@@ -1,0 +1,49 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "GymZone.MotivationTrackSpec",
+  "type": "object",
+  "description": "Parameter schema for motivational music in gym and wellness zones.",
+  "properties": {
+    "zone_type": {
+      "type": "string",
+      "enum": ["cardio", "strength", "stretching", "recovery"],
+      "description": "Type of gym zone."
+    },
+    "session_phase": {
+      "type": "string",
+      "enum": ["warmup", "peak", "cooldown"],
+      "description": "Current phase of the workout session."
+    },
+    "crowding_level": {
+      "type": "number",
+      "minimum": 0.0,
+      "maximum": 1.0,
+      "description": "Normalized crowding/occupancy level (0–1)."
+    },
+    "user_preference_vector": {
+      "type": "object",
+      "description": "Style weights for different musical genres.",
+      "properties": {
+        "electronic": { "type": "number", "minimum": 0.0, "maximum": 1.0 },
+        "rock": { "type": "number", "minimum": 0.0, "maximum": 1.0 },
+        "hiphop": { "type": "number", "minimum": 0.0, "maximum": 1.0 },
+        "orchestral": { "type": "number", "minimum": 0.0, "maximum": 1.0 },
+        "ambient": { "type": "number", "minimum": 0.0, "maximum": 1.0 }
+      },
+      "required": ["electronic", "rock", "hiphop", "orchestral", "ambient"],
+      "additionalProperties": false
+    },
+    "speech_presence": {
+      "type": "boolean",
+      "description": "True if coaching or other speech content is active."
+    }
+  },
+  "required": [
+    "zone_type",
+    "session_phase",
+    "crowding_level",
+    "user_preference_vector",
+    "speech_presence"
+  ],
+  "additionalProperties": false
+}
