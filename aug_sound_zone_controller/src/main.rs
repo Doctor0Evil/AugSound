@@ -1,14 +1,18 @@
 use axum::{
-    extract::State,
-    http::StatusCode,
+    extract::{Path, State},
+    http::{HeaderValue, Method, StatusCode},
     response::IntoResponse,
-    routing::{get, post},
+    routing::{get, post, put, delete},
     Json, Router,
 };
 use serde::{Deserialize, Serialize};
 use std::{collections::HashMap, net::SocketAddr, sync::Arc};
 use tokio::sync::RwLock;
 use uuid::Uuid;
+
+use tower_http::cors::{Any, CorsLayer};
+use tracing::{error, info};
+use tracing_subscriber::{fmt, EnvFilter};
 
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Hash)]
 #[serde(rename_all = "snake_case")]
@@ -102,7 +106,7 @@ async fn create_zone(
 
 async fn get_zone(
     State(state): State<AppState>,
-    axum::extract::Path(id): axum::extract::Path<Uuid>,
+    Path(id): Path<Uuid>,
 ) -> impl IntoResponse {
     let zones = state.zones.read().await;
     if let Some(zone) = zones.get(&id) {
@@ -114,7 +118,7 @@ async fn get_zone(
 
 async fn update_zone_spec(
     State(state): State<AppState>,
-    axum::extract::Path(id): axum::extract::Path<Uuid>,
+    Path(id): Path<Uuid>,
     Json(payload): Json<UpdateZoneSpecRequest>,
 ) -> impl IntoResponse {
     let mut zones = state.zones.write().await;
@@ -129,7 +133,7 @@ async fn update_zone_spec(
 
 async fn delete_zone(
     State(state): State<AppState>,
-    axum::extract::Path(id): axum::extract::Path<Uuid>,
+    Path(id): Path<Uuid>,
 ) -> impl IntoResponse {
     let mut zones = state.zones.write().await;
     if zones.remove(&id).is_some() {
@@ -141,25 +145,36 @@ async fn delete_zone(
 
 #[tokio::main]
 async fn main() {
-    // In a production Phoenix deployment, this service would run on an edge node
-    // within a gym, mall, or civic facility and be integrated with the building
-    // management system and AI audio backend.
+    // Structured logging
+    tracing_subscriber::registry()
+        .with(fmt::layer())
+        .with(EnvFilter::from_default_env())
+        .init();
+
     let state = AppState::default();
 
     let app = Router::new()
         .route("/zones", get(list_zones).post(create_zone))
         .route(
             "/zones/:id",
-            get(get_zone)
-                .put(update_zone_spec)
-                .delete(delete_zone),
+            get(get_zone).put(update_zone_spec).delete(delete_zone),
         )
-        .with_state(state);
+        .with_state(state)
+        .layer(
+            CorsLayer::new()
+                .allow_origin(Any)
+                .allow_methods([Method::GET, Method::POST, Method::PUT, Method::DELETE])
+                .allow_headers([axum::http::header::CONTENT_TYPE])
+                .allow_credentials(false),
+        );
 
     let addr: SocketAddr = "0.0.0.0:8080".parse().expect("invalid listen addr");
-    println!("AugSound zone controller listening on {}", addr);
-    axum::Server::bind(&addr)
+    info!("AugSound zone controller listening on {}", addr);
+
+    if let Err(e) = axum::Server::bind(&addr)
         .serve(app.into_make_service())
         .await
-        .expect("server error");
+    {
+        error!("server error: {}", e);
+    }
 }
