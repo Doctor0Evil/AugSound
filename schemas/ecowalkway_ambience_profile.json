@@ -1,0 +1,41 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "EcoWalkway.AmbienceProfile",
+  "type": "object",
+  "description": "Parameter schema for eco-walkway ambient sound control in smart-city contexts.",
+  "properties": {
+    "biome_type": {
+      "type": "string",
+      "enum": ["desert_shade", "urban_canal", "tree_canopy", "mixed_urban"],
+      "description": "High-level biome descriptor for the walkway zone."
+    },
+    "foot_traffic_density": {
+      "type": "number",
+      "minimum": 0.0,
+      "maximum": 1.0,
+      "description": "Normalized density of pedestrians (0–1)."
+    },
+    "target_hr_zone": {
+      "type": "string",
+      "enum": ["rest", "light_walk", "brisk_walk"],
+      "description": "Intended heart-rate zone for supportive ambience."
+    },
+    "noise_floor_db": {
+      "type": "number",
+      "description": "Estimated A-weighted noise floor in dB."
+    },
+    "wildlife_masking_budget_db": {
+      "type": "number",
+      "minimum": 0.0,
+      "description": "Maximum allowed masking of natural wildlife sounds in dB."
+    }
+  },
+  "required": [
+    "biome_type",
+    "foot_traffic_density",
+    "target_hr_zone",
+    "noise_floor_db",
+    "wildlife_masking_budget_db"
+  ],
+  "additionalProperties": false
+}
