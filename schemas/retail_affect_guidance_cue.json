@@ -1,0 +1,41 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Retail.AffectGuidanceCue",
+  "type": "object",
+  "description": "Affect guidance parameters for ambient and promotional sound in retail zones.",
+  "properties": {
+    "store_zone": {
+      "type": "string",
+      "enum": ["entrance", "browsing", "fitting_room", "checkout", "exit"],
+      "description": "Current zone within the store."
+    },
+    "target_affect": {
+      "type": "string",
+      "enum": ["calm", "curious", "focused", "efficient"],
+      "description": "Target affective state for customers."
+    },
+    "queue_length": {
+      "type": "number",
+      "minimum": 0,
+      "description": "Estimated queue length (e.g., number of people)."
+    },
+    "promo_intensity": {
+      "type": "number",
+      "minimum": 0.0,
+      "maximum": 1.0,
+      "description": "Maximum allowed promotional character (0–1)."
+    },
+    "ambient_light_level": {
+      "type": "number",
+      "description": "Ambient light level in the zone, in implementation-defined units."
+    }
+  },
+  "required": [
+    "store_zone",
+    "target_affect",
+    "queue_length",
+    "promo_intensity",
+    "ambient_light_level"
+  ],
+  "additionalProperties": false
+}
