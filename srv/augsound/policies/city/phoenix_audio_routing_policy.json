@@ -1,0 +1,17 @@
+{
+  "policy.phoenix_audio_routing": {
+    "if": "rep_score < -0.3",
+    "then": {
+      "actions": [
+        "restrict_to_adults_only",
+        "exclude_from_public_gym_ambience",
+        "exclude_from_transit_default_playlists"
+      ]
+    },
+    "creativity_preserved": true,
+    "logging": {
+      "anchor_to_ledger": true,
+      "include": ["rep_score", "social_impact", "time_window", "incidents_total"]
+    }
+  }
+}
