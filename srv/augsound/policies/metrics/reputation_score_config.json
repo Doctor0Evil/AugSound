@@ -1,0 +1,10 @@
+{
+  "metrics.rep_score": {
+    "formula": "rep = gamma * W_t * (w_B * B - w_H * H)",
+    "gamma": 1.0,
+    "weights": { "w_B": 0.4, "w_H": 0.6 },
+    "range": [-1.0, 1.0],
+    "affects": ["distribution_rank", "age_gate_level"],
+    "does_not_affect": ["account_status", "creativity_score"]
+  }
+}
