@@ -1,0 +1,10 @@
+{
+  "policy.public_safety_audio": {
+    "if": "impact_score < -0.4",
+    "then": [
+      "exclude_from_police-facing_training_material",
+      "exclude_from_public_gym_and_transit_ambience",
+      "require_explicit_opt_in_for_private_listening"
+    ]
+  }
+}
