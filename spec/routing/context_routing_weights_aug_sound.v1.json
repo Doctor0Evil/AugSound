@@ -1,0 +1,32 @@
+{
+  "config_id": "context_routing_weights_aug_sound.v1",
+  "contexts": [
+    {
+      "id": "public_speaker_gym",
+      "weights": {
+        "integrity_score": 0.4,
+        "impact_score": 0.5,
+        "creativity_score": 0.1
+      },
+      "restrictions": ["no_severe_negative_impact"]
+    },
+    {
+      "id": "public_speaker_eco_walkway",
+      "weights": {
+        "integrity_score": 0.3,
+        "impact_score": 0.6,
+        "creativity_score": 0.1
+      },
+      "restrictions": ["exclude_high_violence_themes"]
+    },
+    {
+      "id": "personal_headphones_private",
+      "weights": {
+        "integrity_score": 0.2,
+        "impact_score": 0.3,
+        "creativity_score": 0.5
+      },
+      "restrictions": ["require_explicit_opt_in_for_high_harm_content"]
+    }
+  ]
+}
