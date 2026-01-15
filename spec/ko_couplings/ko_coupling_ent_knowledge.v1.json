@@ -1,0 +1,15 @@
+{
+  "coupling_id": "entertainment_to_knowledge.v1",
+  "formula": "F_ent_K = F_K + kappa * S_i",
+  "bounds": {
+    "kappa_min": -0.05,
+    "kappa_max": 0.05
+  },
+  "constraints": [
+    "abs(kappa * S_i) <= 0.2 * F_K"
+  ],
+  "research_tasks": [
+    "simulate_effects_of_kappa_on_knowledge_rankings",
+    "verify_no_domain_capture_by_entertainment_signals"
+  ]
+}
