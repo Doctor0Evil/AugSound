@@ -1,0 +1,26 @@
+{
+  "config_id": "integrity_impact_thresholds.v1",
+  "integritytrace": {
+    "plagiarism_risk_threshold": 2,
+    "ai_use_flag_threshold": "ai_suspected_not_disclosed",
+    "marketing_truthfulness_min": 1,
+    "effects_on_routing": [
+      "below_threshold: no_change",
+      "above_threshold: reduce_collab_suggestions_weight"
+    ]
+  },
+  "impactlog": {
+    "harm_categories": ["physical", "psychological", "economic"],
+    "min_incidents": 2,
+    "min_exposures": 1000,
+    "min_causal_strength": "plausible_link",
+    "effects_on_routing": [
+      "moderate_harm: down_weight_in_public_zones_only",
+      "severe_harm: exclude_from_kids_and_police_adjacent_zones"
+    ],
+    "robustness_checks": [
+      "cross_source_verification",
+      "brigading_anomaly_detection"
+    ]
+  }
+}
