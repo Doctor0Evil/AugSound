@@ -1,0 +1,19 @@
+{
+  "config_id": "time_decay_config.v1",
+  "decay_functions": {
+    "knowledge": {
+      "lambda": 0.05,
+      "justification": "Stable safety/educational content; slow decay.",
+      "to_validate": true
+    },
+    "entertainment": {
+      "lambda": 0.30,
+      "justification": "Trend-driven music/content; faster decay.",
+      "to_validate": true
+    }
+  },
+  "research_tasks": [
+    "fit_lambda_knowledge_from_longitudinal_outcomes",
+    "fit_lambda_entertainment_from_trend_lifecycle_data"
+  ]
+}
