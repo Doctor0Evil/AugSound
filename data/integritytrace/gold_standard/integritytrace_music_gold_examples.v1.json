@@ -1,0 +1,115 @@
+{
+  "schema_ref": "spec/integritytrace/integritytrace_music_annotation_schema.v1.json",
+  "records": [
+    {
+      "content_id": "track_az_hydro_001",
+      "title": "Hydroponic Dawn Walk",
+      "artist_id_hash": "u_9f1c3b4e",
+      "release_date": "2026-01-10",
+      "modality": "music",
+      "annotations": {
+        "plagiarism_risk": {
+          "label": 1,
+          "mir_model_id": "MelodySim_v3.2",
+          "reference_track_ids": ["ref_ambient_forest_2018_07"],
+          "similarity_scores": {
+            "melodic": 0.32,
+            "harmonic": 0.21,
+            "rhythmic": 0.18
+          }
+        },
+        "ai_use_disclosed": {
+          "label": "ai_assisted_disclosed",
+          "artist_disclosure_text": "Generated chord beds with AI, arranged and recorded live instruments on top.",
+          "platform_metadata": {
+            "ai_tools_tagged": ["composition_assist"],
+            "provenance_links_present": true
+          },
+          "provenance_hashes": [
+            "0xabc123hydroai1",
+            "0xabc123hydroai2"
+          ]
+        },
+        "marketing_truthfulness": {
+          "label": 2,
+          "campaign_ids": ["camp_hydro_mall_001"],
+          "ad_copies": [
+            "Original hydroponic-inspired ambient track for Phoenix malls and eco-walkways."
+          ],
+          "nlp_flags": [],
+          "human_review_notes": "Claims match listening and production notes; no exaggerated achievements."
+        }
+      },
+      "gold_standard": {
+        "annotators": [
+          {
+            "id_hash": "ann_a71",
+            "timestamp_utc": "2026-01-14T18:00:00Z"
+          },
+          {
+            "id_hash": "ann_b19",
+            "timestamp_utc": "2026-01-14T18:05:00Z"
+          }
+        ],
+        "adjudicated": false
+      }
+    },
+    {
+      "content_id": "track_az_publicity_013",
+      "title": "Shockwave Downtown",
+      "artist_id_hash": "u_7e4d9a22",
+      "release_date": "2025-11-02",
+      "modality": "music",
+      "annotations": {
+        "plagiarism_risk": {
+          "label": 2,
+          "mir_model_id": "TruMuzic_v2.4",
+          "reference_track_ids": ["ref_hiphop_2014_21", "ref_hiphop_2015_09"],
+          "similarity_scores": {
+            "melodic": 0.68,
+            "harmonic": 0.55,
+            "rhythmic": 0.73
+          }
+        },
+        "ai_use_disclosed": {
+          "label": "ai_suspected_not_disclosed",
+          "artist_disclosure_text": "All lyrics written straight from the heart, no computers.",
+          "platform_metadata": {
+            "ai_tools_tagged": [],
+            "provenance_links_present": false
+          },
+          "provenance_hashes": [],
+          "model_signals": {
+            "lyric_style_model": "LyricTrace_v1.1",
+            "ai_likelihood_score": 0.91
+          }
+        },
+        "marketing_truthfulness": {
+          "label": 0,
+          "campaign_ids": ["camp_shockwave_city_004"],
+          "ad_copies": [
+            "Banned in multiple cities for being too real.",
+            "The only track the police tried to remove from the net."
+          ],
+          "nlp_flags": ["unverified_ban_claims", "sensational_police_claims"],
+          "human_review_notes": "No evidence of bans found in platform or legal records; ads materially misrepresent enforcement actions."
+        }
+      },
+      "gold_standard": {
+        "annotators": [
+          {
+            "id_hash": "ann_c32",
+            "timestamp_utc": "2026-01-14T18:10:00Z"
+          },
+          {
+            "id_hash": "ann_d07",
+            "timestamp_utc": "2026-01-14T18:18:00Z"
+          }
+        ],
+        "adjudicated": true,
+        "adjudicator_id_hash": "lead_ann_x01",
+        "adjudication_notes": "Confirmed AI suspicion and misleading marketing claims based on tool output + manual search."
+      }
+    }
+  ]
+}
