@@ -1,0 +1,64 @@
+{
+  "schema_id": "impactlog_exposure_incident_spec.v1",
+  "entities": {
+    "exposure_event": {
+      "required_fields": [
+        "exposure_id",
+        "user_id_hash",
+        "content_id",
+        "modality",
+        "timestamp_utc",
+        "duration_seconds",
+        "surface_type",
+        "device_type",
+        "geo_bucket"
+      ],
+      "field_types": {
+        "exposure_id": "string",
+        "user_id_hash": "string",
+        "content_id": "string",
+        "modality": "enum[music,ambient,voiceover,xr_audio]",
+        "timestamp_utc": "datetime",
+        "duration_seconds": "float",
+        "surface_type": "enum[playlist,radio,aug_sound_zone,xr_scene]",
+        "device_type": "enum[mobile,headset,car,public_speaker]",
+        "geo_bucket": "string"
+      }
+    },
+    "incident_report": {
+      "required_fields": [
+        "incident_id",
+        "content_id",
+        "timestamp_utc",
+        "jurisdiction",
+        "severity_score",
+        "harm_type",
+        "source_type",
+        "exposure_evidence",
+        "causal_assessment"
+      ],
+      "field_types": {
+        "incident_id": "string",
+        "content_id": "string",
+        "timestamp_utc": "datetime",
+        "jurisdiction": "string",
+        "severity_score": "float",
+        "harm_type": "enum[physical,psychological,economic,property]",
+        "source_type": "enum[law_enforcement_report,court_record,verified_news,internal_trust_safety]",
+        "exposure_evidence": "string",
+        "causal_assessment": "enum[no_link,weak_link,plausible_link,strong_link]"
+      }
+    }
+  },
+  "policy": {
+    "min_requirements_for_negative_routing": {
+      "exposure_events_per_content_min": 1000,
+      "incident_reports_min": 2,
+      "min_causal_level": "plausible_link"
+    }
+  },
+  "versioning": {
+    "current_version": 1,
+    "change_log_required": true
+  }
+}
