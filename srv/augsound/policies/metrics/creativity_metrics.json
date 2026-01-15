@@ -1,0 +1,9 @@
+{
+  "metrics.creativity": {
+    "inputs": ["novelty_score", "craft_quality", "entertainment_factor"],
+    "range": [0.0, 1.0],
+    "weights": { "novelty": 0.4, "quality": 0.3, "entertainment": 0.3 },
+    "karmic_link": false,
+    "knowledge_link": false
+  }
+}
