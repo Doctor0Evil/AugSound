@@ -1,0 +1,12 @@
+{
+  "version": "1.0.0",
+  "scope": "publicspaces.biophilic_directional_spots",
+  "rule.directional_spot.garden_island": {
+    "zone": "Z-GARDEN-1",
+    "speaker_type": "ultrasonic_directional",
+    "content": "localized_nature_microforest",
+    "constraints": {
+      "outside_zone_level_max_db": 35
+    }
+  }
+}
