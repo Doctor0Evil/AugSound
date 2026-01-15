@@ -1,0 +1,13 @@
+{
+  "version": "1.0.0",
+  "scope": "publicspaces.biophilic_adaptive_masking",
+  "rule.adaptive_masking": {
+    "input": "metrics.crowd_index",
+    "mapping": [
+      { "range": [0.0, 0.3], "mask_level_db": -12.0 },
+      { "range": [0.3, 0.7], "mask_level_db": -8.0 },
+      { "range": [0.7, 1.0], "mask_level_db": -4.0 }
+    ],
+    "target": "ambience.biophilic_layer_gain_db"
+  }
+}
