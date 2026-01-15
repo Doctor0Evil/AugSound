@@ -1,0 +1,11 @@
+{
+  "metric.integrity_score": {
+    "range": [-1.0, 1.0],
+    "inputs": [
+      "ai_use_disclosed",
+      "plagiarism_risk",
+      "marketing_truthfulness"
+    ],
+    "independent_of": ["creativity_score", "wealth", "fame"]
+  }
+}
