@@ -1,0 +1,51 @@
+{
+  "schema_id": "integritytrace_music_annotation_schema.v1",
+  "scope": "music_release_level",
+  "labels": {
+    "plagiarism_risk": {
+      "type": "ordinal",
+      "range": [0, 3],
+      "description": "0 = no similarity, 1 = weak stylistic similarity, 2 = strong but likely legal similarity, 3 = high-risk similarity to specific prior works",
+      "evidence_fields": [
+        "mir_model_id",
+        "reference_track_ids",
+        "similarity_scores"
+      ]
+    },
+    "ai_use_disclosed": {
+      "type": "categorical",
+      "values": ["none_claimed", "ai_assisted_disclosed", "ai_primary_disclosed", "ai_suspected_not_disclosed"],
+      "description": "Declared vs detected AI use in composition/lyrics/production",
+      "evidence_fields": [
+        "artist_disclosure_text",
+        "platform_metadata",
+        "provenance_hashes"
+      ]
+    },
+    "marketing_truthfulness": {
+      "type": "ordinal",
+      "range": [0, 2],
+      "description": "0 = materially misleading, 1 = partially accurate with hype, 2 = accurate / honest",
+      "evidence_fields": [
+        "campaign_ids",
+        "ad_copies",
+        "nlp_flags",
+        "human_review_notes"
+      ]
+    }
+  },
+  "gold_standard_flags": {
+    "requires_two_humans": true,
+    "adjudication_required_if_disagree": true,
+    "store_annotator_ids_hashed": true
+  },
+  "data_splits": {
+    "train_pct": 0.7,
+    "validation_pct": 0.15,
+    "test_pct": 0.15
+  },
+  "provenance": {
+    "created_by": "integritytrace_workstream",
+    "created_at_utc": "2026-01-15T00:00:00Z"
+  }
+}
