@@ -1,0 +1,6 @@
+{
+  "metrics.time_weight": {
+    "lambda": 0.3,
+    "formula": "W_t = exp(-lambda * years_since_release)"
+  }
+}
