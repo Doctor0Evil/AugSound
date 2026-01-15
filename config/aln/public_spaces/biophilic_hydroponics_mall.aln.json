@@ -1,0 +1,207 @@
+{
+  "version": "1.0.0",
+  "scope": "public_mall_hydroponics_grid",
+  "description": "Biophilic, all-ages sound system for shopping centers and public spaces using edge-AI, directional speakers, and Auracast.",
+  "core_constraints": {
+    "max_spl_db": 80,
+    "target_lufs_global": -18,
+    "kids_zone_max_spl_db": 70,
+    "safety_announcement_duck_db": -18,
+    "safety_announcement_attack_ms": 40,
+    "safety_announcement_release_ms": 600,
+    "raw_audio_storage": false
+  },
+  "zones": [
+    {
+      "id": "Z-GARDEN-1",
+      "type": "retail_garden",
+      "role": "rest",
+      "speaker_layout": {
+        "ceiling_fullrange": 6,
+        "ceiling_ultrasonic": 2
+      },
+      "acoustics": {
+        "reverb_target_rt60_s": 0.9,
+        "use_sustainable_panels": true,
+        "panel_material": "recycled_fiber_biophilic",
+        "biomimetic_geometry": "leaf_diffusers"
+      }
+    },
+    {
+      "id": "Z-WALK-1",
+      "type": "eco_walkway",
+      "role": "transit",
+      "speaker_layout": {
+        "ceiling_fullrange": 8,
+        "beacons_auracast": 3
+      },
+      "acoustics": {
+        "reverb_target_rt60_s": 1.1,
+        "use_sustainable_panels": true,
+        "panel_material": "recycled_plastic_slat",
+        "biomimetic_geometry": "ribbed_canopy"
+      }
+    },
+    {
+      "id": "Z-FOOD-1",
+      "type": "food_court",
+      "role": "social",
+      "speaker_layout": {
+        "ceiling_fullrange": 10
+      },
+      "acoustics": {
+        "reverb_target_rt60_s": 1.3,
+        "use_sustainable_panels": true,
+        "panel_material": "felt_cloud_panels",
+        "biomimetic_geometry": "shell_canopy"
+      }
+    }
+  ],
+  "biophilic_scenes": [
+    {
+      "id": "forest_soft",
+      "content": {
+        "layers": ["wind_soft", "leaves_rustle_low", "small_birds_sparse"],
+        "loop_style": "non_repeating_generated"
+      },
+      "defaults": {
+        "density": 0.4,
+        "max_spl_db": 60,
+        "hf_rolloff_hz": 8000
+      }
+    },
+    {
+      "id": "midday_forest_light",
+      "content": {
+        "layers": ["wind_medium", "leaves_rustle_med", "birds_medium"],
+        "loop_style": "non_repeating_generated"
+      },
+      "defaults": {
+        "density": 0.6,
+        "max_spl_db": 64,
+        "hf_rolloff_hz": 12000
+      }
+    },
+    {
+      "id": "dawn_birds_soft",
+      "content": {
+        "layers": ["distant_stream", "dawn_birds_sparse"],
+        "loop_style": "non_repeating_generated"
+      },
+      "defaults": {
+        "density": 0.3,
+        "max_spl_db": 58,
+        "hf_rolloff_hz": 9000
+      }
+    },
+    {
+      "id": "evening_crickets_low",
+      "content": {
+        "layers": ["crickets_soft", "night_air"],
+        "loop_style": "non_repeating_generated"
+      },
+      "defaults": {
+        "density": 0.35,
+        "max_spl_db": 58,
+        "hf_rolloff_hz": 7000
+      }
+    }
+  ],
+  "auracast": {
+    "channels": [
+      {
+        "id": "ASC-001",
+        "label": "Calm Forest",
+        "profile": "all_ages",
+        "scene_id": "forest_soft",
+        "priority": 1
+      },
+      {
+        "id": "ASC-002",
+        "label": "Focus Water",
+        "profile": "study_quiet",
+        "scene_id": "dawn_birds_soft",
+        "priority": 2
+      }
+    ],
+    "public_location_registration": {
+      "required": true,
+      "provider": "Bluetooth_SIG"
+    }
+  },
+  "rules": {
+    "biophilic_scene_selection": [
+      {
+        "id": "rule.biophilic_scene",
+        "if": "zone.type in ['retail_garden','eco_walkway']",
+        "then": "ambience.scene = 'forest_soft'",
+        "params": {
+          "density": 0.4,
+          "max_spl": 60
+        }
+      }
+    ],
+    "adaptive_masking": [
+      {
+        "id": "rule.adaptive_masking",
+        "input": "metrics.crowd_index",
+        "mapping": [
+          { "range": [0.0, 0.3], "mask_level_db": -12 },
+          { "range": [0.3, 0.7], "mask_level_db": -8 },
+          { "range": [0.7, 1.0], "mask_level_db": -4 }
+        ],
+        "target": "ambience.biophilic_layer_gain_db"
+      }
+    ],
+    "directional_spots": [
+      {
+        "id": "rule.directional_spot.product_display_A",
+        "zone": "Z-GARDEN-1",
+        "speaker_type": "ultrasonic_directional",
+        "content": "localized_nature_plus_promo",
+        "constraints": {
+          "outside_zone_level_max_db": 35
+        }
+      }
+    ],
+    "circadian_schedule": [
+      {
+        "id": "rule.circadian_biophilia",
+        "schedule": [
+          { "time_range": "06:00-10:00", "scene": "dawn_birds_soft" },
+          { "time_range": "10:00-18:00", "scene": "midday_forest_light" },
+          { "time_range": "18:00-22:00", "scene": "evening_crickets_low" }
+        ]
+      }
+    ],
+    "safety_integration": [
+      {
+        "id": "rule.safety_duck",
+        "on_event": "safety_announcement_start",
+        "actions": [
+          "ambience.duck_global",
+          "route.voice_priority_safety"
+        ],
+        "params": {
+          "duck_db": -18,
+          "attack_ms": 40,
+          "release_ms": 600,
+          "center_channel": true
+        }
+      }
+    ]
+  },
+  "telemetry_bindings": {
+    "inputs": [
+      "metrics.crowd_index",
+      "metrics.zone_spl",
+      "time_of_day",
+      "events.safety_announcement_start"
+    ],
+    "exports": [
+      "zone_scene_id",
+      "zone_biophilic_gain_db",
+      "auracast_active_channels"
+    ]
+  }
+}
