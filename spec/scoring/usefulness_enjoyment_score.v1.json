@@ -1,0 +1,23 @@
+{
+  "metric_id": "usefulness_enjoyment.v1",
+  "components": {
+    "usefulness": {
+      "inputs": ["learning_gain", "safety_value", "wellbeing_delta"],
+      "range": [0.0, 1.0]
+    },
+    "enjoyment": {
+      "inputs": ["dwell_time", "repeat_listens", "self_reported_enjoyment"],
+      "range": [0.0, 1.0]
+    }
+  },
+  "composite_formula": "U_total = wU*U + wE*E",
+  "weights_default": {
+    "wU": 0.6,
+    "wE": 0.4
+  },
+  "research_tasks": [
+    "estimate_learning_gain_in_xr_gyms",
+    "collect_wellbeing_surveys_for_biophilic_ambience",
+    "calibrate_wU_wE_per_context"
+  ]
+}
