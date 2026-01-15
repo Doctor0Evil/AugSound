@@ -41,4 +41,16 @@
     "min_exposures_per_group": 500,
     "aggregation_window_hours": 24
   }
+},
+{
+  "research_extensions": {
+    "creator_size_bias": {
+      "extra_dimensions": ["follower_bucket", "stream_count_bucket"],
+      "tasks": ["estimate_bias_control_vs_treatment"]
+    },
+    "user_perceived_fairness": {
+      "survey_link": "https://example.org/fairness-survey",
+      "tasks": ["compare_mgpi_to_survey_scores"]
+    }
+  }
 }
