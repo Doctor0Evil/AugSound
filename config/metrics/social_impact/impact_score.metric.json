@@ -1,0 +1,12 @@
+{
+  "metric.impact_score": {
+    "range": [-1.0, 1.0],
+    "harm_sources": ["verified_incidents", "law_enforcement_reports"],
+    "benefit_sources": ["wellbeing_surveys", "community_programs"],
+    "policy": {
+      "physical_harm_weight": 1.0,
+      "economic_harm_weight": 0.7,
+      "offense_only_weight": 0.1
+    }
+  }
+}
