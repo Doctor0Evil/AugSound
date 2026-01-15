@@ -1,0 +1,24 @@
+{
+  "version": "1.0.0",
+  "scope": "publicspaces.biophilic_auracast_channels",
+  "auracast.channels": [
+    {
+      "id": "ASC-001",
+      "label": "Calm Forest",
+      "profile": "all_ages",
+      "scene_id": "forest_soft",
+      "priority": 1
+    },
+    {
+      "id": "ASC-002",
+      "label": "Focus Water",
+      "profile": "study_quiet",
+      "scene_id": "dawn_water_soft",
+      "priority": 2
+    }
+  ],
+  "public_location_registration": {
+    "required": true,
+    "provider": "BluetoothSIG"
+  }
+}
