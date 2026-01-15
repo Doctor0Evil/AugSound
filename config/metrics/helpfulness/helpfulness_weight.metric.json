@@ -1,0 +1,8 @@
+{
+  "metric.helpfulness_weight": {
+    "formula": "H_w = wC*C + wI*I + wS*S",
+    "weights": { "wC": 0.2, "wI": 0.4, "wS": 0.4 },
+    "use_for": ["recommendations", "collab_suggestions", "extra_guidance"],
+    "not_used_for": ["basic_search_results", "user_right_to_view_own_work"]
+  }
+}
