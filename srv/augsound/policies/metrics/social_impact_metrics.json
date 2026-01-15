@@ -1,0 +1,8 @@
+{
+  "metrics.social_impact": {
+    "harm": { "alpha": 0.2, "source": "incident_logs" },
+    "benefit": { "beta": 0.1, "source": "positive_outcome_logs" },
+    "formula": "S = B - H",
+    "range": [-1.0, 1.0]
+  }
+}
