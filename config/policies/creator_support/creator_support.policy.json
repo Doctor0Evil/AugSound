@@ -1,0 +1,10 @@
+{
+  "policy.creator_support": {
+    "priority_order": [
+      "integrity_score",
+      "impact_score",
+      "creativity_score"
+    ],
+    "rule": "when suggesting creators to support, prefer high-integrity, net-positive impact, regardless of follower_count or revenue"
+  }
+}
