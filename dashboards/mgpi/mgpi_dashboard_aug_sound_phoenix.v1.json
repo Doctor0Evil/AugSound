@@ -1,0 +1,93 @@
+{
+  "dashboard_id": "mgpi_aug_sound_phoenix.v1",
+  "title": "MGPI & Compensation Monitoring - AugSound Phoenix",
+  "scope": {
+    "deployment": "Phoenix_AugSound_Public_Spaces",
+    "contexts": ["gym", "retail_mall", "eco_walkway", "transit_hub"],
+    "routing_experiments": ["fair_routing_v1", "fair_routing_v2"]
+  },
+  "data_sources": {
+    "mgpi_service_config": "services/mgpi/config/mgpi_monitoring_service_config.v1.json",
+    "exposure_logs": "warehouse/aug_sound/exposures/",
+    "payout_records": "warehouse/aug_sound/payouts/"
+  },
+  "group_dimensions": [
+    {
+      "id": "genre_cluster",
+      "label": "Genre Cluster",
+      "values": ["ambient_biophilic", "hiphop", "pop", "rock", "experimental"]
+    },
+    {
+      "id": "artist_size",
+      "label": "Artist Size",
+      "values": ["emerging", "mid", "large"]
+    },
+    {
+      "id": "zone_type",
+      "label": "Zone Type",
+      "values": ["gym", "mall_rest", "mall_social", "walkway", "transit"]
+    }
+  ],
+  "widgets": [
+    {
+      "id": "w1_mgpi_overview",
+      "type": "timeseries",
+      "title": "MGPI by Group Dimension",
+      "metrics": ["mgpi"],
+      "dimensions": ["genre_cluster", "artist_size"],
+      "time_window_hours": 168,
+      "thresholds": {
+        "warning": 0.08,
+        "critical": 0.10
+      }
+    },
+    {
+      "id": "w2_payout_parity",
+      "type": "table",
+      "title": "Payout vs Exposure Share by Group",
+      "metrics": ["exposure_share", "payout_share", "payout_parity_ratio"],
+      "dimensions": ["genre_cluster", "artist_size"],
+      "highlight_condition": "payout_parity_ratio < 0.9"
+    },
+    {
+      "id": "w3_zone_fairness_heatmap",
+      "type": "heatmap",
+      "title": "Fairness by Zone Type and Genre Cluster",
+      "metrics": ["mgpi"],
+      "dimensions": ["zone_type", "genre_cluster"],
+      "time_window_hours": 72
+    },
+    {
+      "id": "w4_experiment_comparison",
+      "type": "comparison",
+      "title": "Control vs Treatment (FairRouting)",
+      "metrics": ["mgpi", "payout_parity_ratio", "avg_listen_time"],
+      "group_by": "genre_cluster",
+      "variants": ["control", "treatment"],
+      "time_window_hours": 72
+    }
+  ],
+  "alerts": [
+    {
+      "id": "alert_mgpi_critical",
+      "condition": "mgpi > 0.10 for any group over 24h",
+      "actions": [
+        "notify_fairness_team",
+        "pause_new_traffic_to_treatment",
+        "open_review_ticket"
+      ]
+    },
+    {
+      "id": "alert_payout_parity_low",
+      "condition": "payout_parity_ratio < 0.85 for any group over 72h",
+      "actions": [
+        "notify_payments_team",
+        "recommend_compensation_adjustment_review"
+      ]
+    }
+  ],
+  "refresh_policy": {
+    "interval_minutes": 30,
+    "backfill_hours_on_start": 168
+  }
+}
