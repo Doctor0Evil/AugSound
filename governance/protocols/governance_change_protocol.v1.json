@@ -1,0 +1,39 @@
+{
+  "protocol_id": "governance_change_protocol.v1",
+  "scope": [
+    "IntegrityTrace",
+    "ImpactLog",
+    "FairRoutingExperiment",
+    "Creativity_Scoring"
+  ],
+  "change_unit": {
+    "fields": [
+      "parameter_name",
+      "component",
+      "old_value",
+      "new_value",
+      "effective_version",
+      "effective_date_utc",
+      "rationale",
+      "risk_assessment_link",
+      "public_doc_link"
+    ]
+  },
+  "requirements": {
+    "internal_schema_update": {
+      "format": "JSON/ALN",
+      "registry": "git+ledger",
+      "status_required": "approved"
+    },
+    "public_governance_update": {
+      "deadline_hours_after_internal": 72,
+      "channels": ["docs_portal", "api_changelog"],
+      "plain_language_summary_required": true
+    }
+  },
+  "audit": {
+    "log_all_changes": true,
+    "anchor_hash_to_chain": true,
+    "retention_years": 10
+  }
+}
