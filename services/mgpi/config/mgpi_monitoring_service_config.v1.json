@@ -1,0 +1,44 @@
+{
+  "service_id": "mgpi_monitoring_service",
+  "version": "1.0.0",
+  "inputs": {
+    "routing_variants": ["control", "treatment"],
+    "logs": [
+      "exposure_events",
+      "click_streams",
+      "stream_counts",
+      "payout_records"
+    ],
+    "group_dimensions": [
+      "genre",
+      "artist_region",
+      "artist_size_bucket"
+    ]
+  },
+  "metrics": {
+    "mgpi": {
+      "definition": "Mean Group Parity Index across group_dimensions",
+      "targets": {
+        "max_allowed_delta": 0.1
+      }
+    },
+    "payout_parity": {
+      "definition": "Relative payout vs exposure share per group",
+      "targets": {
+        "min_ratio": 0.9
+      }
+    }
+  },
+  "alerts": {
+    "on_violation": [
+      "notify_fairness_team",
+      "flag_experiment_for_review",
+      "block_promotion_of_treatment_if_severe"
+    ]
+  },
+  "runtime_policy": {
+    "run_mode": "continuous",
+    "min_exposures_per_group": 500,
+    "aggregation_window_hours": 24
+  }
+}
