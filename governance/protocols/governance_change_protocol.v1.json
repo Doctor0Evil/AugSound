@@ -36,4 +36,18 @@
     "anchor_hash_to_chain": true,
     "retention_years": 10
   }
+},
+{
+  "ux_requirements": {
+    "creator_notice": {
+      "required": true,
+      "channels": ["dashboard_notification", "email_optional"],
+      "content": ["what_changed", "why_changed", "how_to_appeal"]
+    },
+    "public_changelog": {
+      "required": true,
+      "format": "human_readable + machine_readable",
+      "fields": ["parameter_name", "old_value", "new_value", "rationale"]
+    }
+  }
 }
