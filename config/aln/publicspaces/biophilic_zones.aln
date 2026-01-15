@@ -1,0 +1,15 @@
+{
+  "version": "1.0.0",
+  "scope": "publicspaces.biophilic_zones",
+  "rule.biophilic_scene": {
+    "if": { "zone.type_in": ["retail_garden", "eco_walkway"] },
+    "then": {
+      "ambience.scene": "forest_soft",
+      "params": {
+        "density": 0.4,
+        "max_spl_db": 60,
+        "hf_rolloff_hz": 8000
+      }
+    }
+  }
+}
